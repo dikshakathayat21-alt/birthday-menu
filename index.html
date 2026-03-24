@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>31 Years of You</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --midnight: #0f1423;
+            --gold: #f3d2a2;
+            --blush: #fff5f0;
+            --heart: #d66d67;
+            --glass: rgba(255, 255, 255, 0.07);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background-color: var(--midnight);
+            /* Soft watercolor texture effect */
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(243, 210, 162, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(214, 109, 103, 0.05) 0%, transparent 40%);
+            color: var(--blush);
+            font-family: 'Quicksand', sans-serif;
+            line-height: 1.6;
+        }
+
+        /* Mobile Container */
+        .wrapper {
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8rem;
+            color: var(--gold);
+            margin: 0;
+            filter: drop-shadow(0 0 8px rgba(243, 210, 162, 0.3));
+        }
+
+        /* Linear Mobile Timeline */
+        .timeline {
+            position: relative;
+            width: 100%;
+            padding-left: 30px; /* Space for the line */
+        }
+
+        /* The vertical line */
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 5px;
+            bottom: 5px;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--gold), var(--heart), transparent);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 35px;
+            background: var(--glass);
+            padding: 20px;
+            border-radius: 18px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .timeline-item:active {
+            transform: scale(0.98);
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        /* The dot on the line */
+        .timeline-item::after {
+            content: '❤';
+            position: absolute;
+            left: -32px;
+            top: 20px;
+            color: var(--gold);
+            font-size: 14px;
+            background: var(--midnight);
+            padding: 2px;
+        }
+
+        .time-label {
+            display: block;
+            color: var(--gold);
+            font-weight: 500;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .event-title {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .vibe-text {
+            font-size: 0.9rem;
+            color: #ccc;
+            font-style: italic;
+            opacity: 0.8;
+        }
+
+        /* Love Note Modal-ish Area */
+        #status-area {
+            text-align: center;
+            margin: 20px 0;
+            min-height: 50px;
+            color: var(--gold);
+            font-size: 0.95rem;
+            padding: 0 10px;
+        }
+
+        .btn-celebrate {
+            background: var(--heart);
+            color: white;
+            border: none;
+            padding: 18px 45px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(214, 109, 103, 0.3);
+            margin-top: 20px;
+            width: 80%;
+        }
+
+        /* Twinkle Animation */
+        .twinkle {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/stardust.png');
+            pointer-events: none;
+            opacity: 0.2;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="twinkle"></div>
+
+    <div class="wrapper">
+        <div class="header">
+            <h1>31 Years of You</h1>
+            <p style="opacity: 0.7;">A night designed for your kind soul</p>
+        </div>
+
+        <div id="status-area">Tap an event for a secret note...</div>
+
+        <div class="timeline">
+            <div class="timeline-item" onclick="reveal('The way you listen makes the whole world feel quiet and safe.')">
+                <span class="time-label">9:00 PM</span>
+                <span class="event-title">🎙️ Speech & Secrets</span>
+                <span class="vibe-text">"Intimate & Grounded"</span>
+            </div>
+
+            <div class="timeline-item" onclick="reveal('I hid the first clue near that thing you always fix for me.')">
+                <span class="time-label">9:30 PM</span>
+                <span class="event-title">🕵️ The Birthday Hunt</span>
+                <span class="vibe-text">"Playful & Exciting"</span>
+            </div>
+
+            <div class="timeline-item" onclick="reveal('Close your eyes and think of everything you deserve.')">
+                <span class="time-label">12:00 AM</span>
+                <span class="event-title">🎂 The Big Wish</span>
+                <span class="vibe-text">"Sweet & Celebratory"</span>
+            </div>
+
+            <div class="timeline-item" onclick="reveal('The best part of today is ending it right here with you.')">
+                <span class="time-label">Later</span>
+                <span class="event-title">🏠 Cozy Home</span>
+                <span class="vibe-text">"Quiet & Content"</span>
+            </div>
+        </div>
+
+        <button class="btn-celebrate" onclick="hugs()">SEND A HUG</button>
+        
+        <p style="margin-top: 30px; font-size: 0.7rem; opacity: 0.4;">Handcrafted with love for him.</p>
+    </div>
+
+    <script>
+        function reveal(msg) {
+            const area = document.getElementById('status-area');
+            area.style.opacity = 0;
+            setTimeout(() => {
+                area.innerHTML = `“${msg}”`;
+                area.style.opacity = 1;
+            }, 200);
+        }
+
+        function hugs() {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.8 },
+                colors: ['#f3d2a2', '#d66d67', '#ffffff']
+            });
+        }
+    </script>
+</body>
+</html>
